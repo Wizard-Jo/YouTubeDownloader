@@ -70,7 +70,7 @@ namespace YouTubeDownloader
                     string resName = item.Content.ToString();
                     resolution = Convert.ToInt32(resName.Remove(resName.Length - 1));
 
-                    OutputText.Foreground = Brushes.Yellow;
+                    OutputText.Foreground = Brushes.DarkGoldenrod;
                     OutputText.Text = $"Starting download";
                     Mouse.OverrideCursor = Cursors.Wait;
                     button.IsEnabled = false;

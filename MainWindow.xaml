@@ -23,8 +23,8 @@
             <ComboBoxItem>1440p</ComboBoxItem>
             <ComboBoxItem>2160p</ComboBoxItem>
         </ComboBox>
-        <Button x:Name="ChooseOutputButton" Content="Pick folder" Margin="303,79,0,0" Click="ChooseOutputButton_Click" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" Width="120"/>
-        <TextBox x:Name="PathBox" Margin="54,79,0,0" TextWrapping="Wrap" Text="Path" IsEnabled="False" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="244" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+        <Button x:Name="ChooseOutputButton" Content="Pick folder" Margin="351,79,0,0" Click="ChooseOutputButton_Click" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" Width="72"/>
+        <TextBox x:Name="PathBox" Margin="54,79,0,0" TextWrapping="Wrap" Text="Path" IsEnabled="False" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="292" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
 
     </Grid>
