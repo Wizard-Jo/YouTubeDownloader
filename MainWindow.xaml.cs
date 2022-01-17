@@ -74,7 +74,7 @@ namespace YouTubeDownloader
 
                 //Info
                 var youtube = new CustomYouTube();
-                var videos = youtube.GetAllVideosAsync(link).GetAwaiter().GetResult();
+                var videos = await youtube.GetAllVideosAsync(link);
                 var targetVid = videos.First(i => i.Resolution == resolution);
                 string tempPath = Path.GetTempPath();
 
@@ -144,7 +144,7 @@ namespace YouTubeDownloader
                 this.Dispatcher.Invoke((Action)(() =>
                 {
                     TimeSpan ts = sw.Elapsed;
-                    string elapsedTime = String.Format("{1:00}:{2:00}.{3:00}", ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+                    string elapsedTime = String.Format("{0:00}:{1:00}.{2:00}", ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
 
                     OutputText.Foreground = Brushes.Green;
                     OutputText.Text = $"Video encoded in {elapsedTime} to {outputPath}";
@@ -237,7 +237,7 @@ namespace YouTubeDownloader
                     {
                         if (percentage < 99)
                         {
-                            OutputText.Text = $"Reencoding in progress: ({percentage}%) - Frame {m.Value} out of {frameCount}";
+                            OutputText.Text = $"Reencoding in progress: ( % {percentage} ) - Frame {m.Value} out of {frameCount}";
                         }
                         else
                         {
