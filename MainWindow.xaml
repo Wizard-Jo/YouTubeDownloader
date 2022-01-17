@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YouTubeDownloader"
         mc:Ignorable="d"
-        Title="Youtube Downloader" Height="272" Width="535" ResizeMode="NoResize" Icon="/YouTube_full-color_icon_(2017).svg.png">
+        Title="Youtube Downloader" Height="235" Width="535" ResizeMode="NoResize" Icon="/YouTube_full-color_icon_(2017).svg.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="LinkBox" Margin="0,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="34" Cursor="IBeam" HorizontalAlignment="Center" Width="244" TextChanged="LinkBox_TextChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
-        <Label x:Name="label" Content="URL" HorizontalAlignment="Left" Margin="102,34,0,0" VerticalAlignment="Top" Height="34" FontSize="10" Width="39" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="button" Content="Download" HorizontalAlignment="Center" Margin="0,89,0,0" VerticalAlignment="Top" Width="244" Height="36" Click="button_Click"/>
+        <TextBox x:Name="LinkBox" Margin="54,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="34" Cursor="IBeam" HorizontalAlignment="Left" Width="369" TextChanged="LinkBox_TextChanged" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
+        <Label x:Name="label" Content="URL" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Height="34" FontSize="10" Width="39" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Button x:Name="button" Content="Download" HorizontalAlignment="Left" Margin="428,79,0,0" VerticalAlignment="Top" Width="80" Height="34" Click="button_Click"/>
         <TextBlock x:Name="OutputText" Grid.Row="1" TextWrapping="Wrap" Text="Output logs" Margin="10,10,10,10" IsEnabled="False"/>
-        <ComboBox x:Name="ResolutionBox" Margin="394,34,21,0" VerticalAlignment="Top" Height="34" SelectedIndex="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" SelectionChanged="ResolutionBox_SelectionChanged">
+        <ComboBox x:Name="ResolutionBox" Margin="428,34,0,0" VerticalAlignment="Top" Height="34" SelectedIndex="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" SelectionChanged="ResolutionBox_SelectionChanged" HorizontalAlignment="Left" Width="80">
             <ComboBoxItem>144p</ComboBoxItem>
             <ComboBoxItem>360p</ComboBoxItem>
             <ComboBoxItem >720p</ComboBoxItem>
@@ -23,6 +23,8 @@
             <ComboBoxItem>1440p</ComboBoxItem>
             <ComboBoxItem>2160p</ComboBoxItem>
         </ComboBox>
+        <Button x:Name="ChooseOutputButton" Content="Pick folder" Margin="303,79,0,0" Click="ChooseOutputButton_Click" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" RenderTransformOrigin="0.5,0.5" Width="120"/>
+        <TextBox x:Name="PathBox" Margin="54,79,0,0" TextWrapping="Wrap" Text="Path" IsEnabled="False" Height="34" VerticalAlignment="Top" HorizontalAlignment="Left" Width="244" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
 
 
     </Grid>

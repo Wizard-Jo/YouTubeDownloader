@@ -12,6 +12,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
+using Microsoft.WindowsAPICodePack.Dialogs;
+
 using VideoLibrary;
 using VideoLibrary.Debug;
 using Path = System.IO.Path;
@@ -23,10 +25,13 @@ namespace YouTubeDownloader
     /// </summary>
     public partial class MainWindow : Window
     {
+        string outputPath = GetDefaultFolder();
 
         public MainWindow()
         {
             InitializeComponent();
+            outputPath = GetDefaultFolder();
+            PathBox.Text = outputPath;
 
         }
 
@@ -79,7 +84,7 @@ namespace YouTubeDownloader
                 string tempPath = Path.GetTempPath();
 
                 frameCount = Convert.ToInt32(targetVid.Fps * targetVid.Info.LengthSeconds);
-                Debug.WriteLine($"FPS: {targetVid.Fps} Duration: {targetVid.Info.LengthSeconds}sec Framecount: {Convert.ToInt32(targetVid.Fps*targetVid.Info.LengthSeconds)}");
+                Debug.WriteLine($"FPS: {targetVid.Fps} Duration: {targetVid.Info.LengthSeconds}sec Framecount: {Convert.ToInt32(targetVid.Fps * targetVid.Info.LengthSeconds)}");
 
                 //Download video in chunks
                 youtube.CreateDownloadAsync(
@@ -136,8 +141,15 @@ namespace YouTubeDownloader
                     OutputText.Text = $"Starting reencode";
                 }));
 
-                string outputPath = Path.Combine(GetDefaultFolder(), targetVid.FullName);
-                await ReencodeVideo(videoPath, audioPath, outputPath, frameCount);
+                if (targetVid.FileExtension == ".webm")
+                {
+                    Debug.WriteLine($"Changing file extension from {targetVid.FileExtension} to .mp4");
+                }
+
+                string finalOutputPath = Path.Combine(outputPath, targetVid.FullName);
+                finalOutputPath = finalOutputPath.Replace(targetVid.FileExtension, ".mp4");
+
+                await ReencodeVideo(videoPath, audioPath, finalOutputPath, frameCount);
 
                 sw.Stop();
 
@@ -191,14 +203,14 @@ namespace YouTubeDownloader
 
                 ffmpegInstance.StartInfo.UseShellExecute = false;
                 ffmpegInstance.StartInfo.Arguments = args;
-                ffmpegInstance.StartInfo.CreateNoWindow = true;
+                ffmpegInstance.StartInfo.CreateNoWindow = false;
                 ffmpegInstance.StartInfo.FileName = @"ffmpeg.exe";
-                ffmpegInstance.StartInfo.RedirectStandardError = true;
+                //ffmpegInstance.StartInfo.RedirectStandardError = true;
 
-                ffmpegInstance.ErrorDataReceived += (sender, args) => Display(args.Data, frameCount);
+                //ffmpegInstance.ErrorDataReceived += (sender, args) => Display(args.Data, frameCount);
 
                 ffmpegInstance.Start();
-                ffmpegInstance.BeginErrorReadLine();
+                //ffmpegInstance.BeginErrorReadLine();
 
                 ffmpegInstance.WaitForExit();
             }
@@ -266,6 +278,19 @@ namespace YouTubeDownloader
         {
             ComboBoxItem item = ResolutionBox.SelectedItem as ComboBoxItem;
             Debug.WriteLine($"{item.Content.ToString().Remove(item.Content.ToString().Length - 1)}p selected");
+        }
+
+        private void ChooseOutputButton_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new CommonOpenFileDialog();
+            dialog.InitialDirectory = GetDefaultFolder();
+            dialog.IsFolderPicker = true;
+
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                outputPath = dialog.FileName;
+                PathBox.Text = outputPath;
+            }
         }
     }
 }
