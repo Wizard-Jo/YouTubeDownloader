@@ -48,8 +48,9 @@ namespace YouTubeDownloader
         {
             try
             {
-                //get video
+                Stopwatch sw = new Stopwatch();
 
+                //get video
                 string link = "";
                 int resolution = 0;
                 string progress;
@@ -69,6 +70,7 @@ namespace YouTubeDownloader
                     button.IsEnabled = false;
                 }));
 
+                sw.Start();
 
                 //Info
                 var youtube = new CustomYouTube();
@@ -137,10 +139,15 @@ namespace YouTubeDownloader
                 string outputPath = Path.Combine(GetDefaultFolder(), targetVid.FullName);
                 await ReencodeVideo(videoPath, audioPath, outputPath, frameCount);
 
+                sw.Stop();
+
                 this.Dispatcher.Invoke((Action)(() =>
                 {
+                    TimeSpan ts = sw.Elapsed;
+                    string elapsedTime = String.Format("{1:00}:{2:00}.{3:00}", ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+
                     OutputText.Foreground = Brushes.Green;
-                    OutputText.Text = $"Video encoded in {outputPath}";
+                    OutputText.Text = $"Video encoded in {elapsedTime} to {outputPath}";
                     Mouse.OverrideCursor = null;
                     button.IsEnabled = true;
                 }));
@@ -230,7 +237,7 @@ namespace YouTubeDownloader
                     {
                         if (percentage < 99)
                         {
-                            OutputText.Text = $"Reencoding in progress:({percentage}%) - Frame {m.Value} out of {frameCount}";
+                            OutputText.Text = $"Reencoding in progress: ({percentage}%) - Frame {m.Value} out of {frameCount}";
                         }
                         else
                         {
