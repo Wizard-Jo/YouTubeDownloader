@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YouTubeDownloader"
         mc:Ignorable="d"
-        Title="Youtube Downloader" Height="235" Width="535" ResizeMode="NoResize" Icon="/YouTube_full-color_icon_(2017).svg.png">
+        Title="Youtube Downloader" Height="223" Width="535" ResizeMode="NoResize" Icon="/YouTube_full-color_icon_(2017).svg.png">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>

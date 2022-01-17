@@ -70,6 +70,7 @@ namespace YouTubeDownloader
                     string resName = item.Content.ToString();
                     resolution = Convert.ToInt32(resName.Remove(resName.Length - 1));
 
+                    OutputText.Foreground = Brushes.Yellow;
                     OutputText.Text = $"Starting download";
                     Mouse.OverrideCursor = Cursors.Wait;
                     button.IsEnabled = false;
@@ -203,14 +204,14 @@ namespace YouTubeDownloader
 
                 ffmpegInstance.StartInfo.UseShellExecute = false;
                 ffmpegInstance.StartInfo.Arguments = args;
-                ffmpegInstance.StartInfo.CreateNoWindow = false;
+                ffmpegInstance.StartInfo.CreateNoWindow = true;
                 ffmpegInstance.StartInfo.FileName = @"ffmpeg.exe";
-                //ffmpegInstance.StartInfo.RedirectStandardError = true;
+                ffmpegInstance.StartInfo.RedirectStandardError = true;
 
-                //ffmpegInstance.ErrorDataReceived += (sender, args) => Display(args.Data, frameCount);
+                ffmpegInstance.ErrorDataReceived += (sender, args) => Display(args.Data, frameCount);
 
                 ffmpegInstance.Start();
-                //ffmpegInstance.BeginErrorReadLine();
+                ffmpegInstance.BeginErrorReadLine();
 
                 ffmpegInstance.WaitForExit();
             }
